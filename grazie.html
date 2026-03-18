@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grazie — Bianchi Consulting</title>
+
+  <!-- Google Fonts: Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Facebook Pixel -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1234567890123456');
+    fbq('track', 'PageView');
+    fbq('track', 'Schedule');
+  </script>
+  <noscript>
+    <img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1234567890123456&ev=Schedule&noscript=1"/>
+  </noscript>
+
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --accent: #2563EB;
+      --accent-hover: #1d4ed8;
+      --accent-light: rgba(37, 99, 235, 0.12);
+      --bg-body: #0A0A0A;
+      --bg-card: #111111;
+      --bg-elevated: #1A1A1A;
+      --text-primary: #F8F8F8;
+      --text-secondary: #A0A0A0;
+      --text-muted: #606060;
+      --border: rgba(255, 255, 255, 0.08);
+      --radius-card: 12px;
+      --radius-btn: 8px;
+      --radius-pill: 9999px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-color: var(--bg-body);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ── Animations ── */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @keyframes scaleIn {
+      from {
+        opacity: 0;
+        transform: scale(0.7);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes checkDraw {
+      from { stroke-dashoffset: 100; }
+      to   { stroke-dashoffset: 0; }
+    }
+
+    .fade-in-1 { animation: fadeInUp 0.6s ease both; animation-delay: 0.1s; }
+    .fade-in-2 { animation: fadeInUp 0.6s ease both; animation-delay: 0.25s; }
+    .fade-in-3 { animation: fadeInUp 0.6s ease both; animation-delay: 0.4s; }
+    .fade-in-4 { animation: fadeInUp 0.6s ease both; animation-delay: 0.55s; }
+    .fade-in-5 { animation: fadeInUp 0.6s ease both; animation-delay: 0.7s; }
+    .fade-in-6 { animation: fadeInUp 0.6s ease both; animation-delay: 0.85s; }
+
+    /* ── Layout ── */
+    .page-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 680px;
+      padding: 0 20px;
+    }
+
+    /* ── Header / Logo ── */
+    .header {
+      width: 100%;
+      padding: 32px 20px;
+      display: flex;
+      justify-content: center;
+      border-bottom: 1px solid var(--border);
+      animation: fadeIn 0.5s ease both;
+    }
+
+    .logo-link {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .logo-img {
+      height: 36px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .logo-fallback {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .logo-fallback span {
+      color: var(--accent);
+    }
+
+    /* ── Hero Section ── */
+    .hero-section {
+      padding: 80px 0 60px;
+      text-align: center;
+    }
+
+    .checkmark-wrapper {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      background: var(--accent-light);
+      border: 2px solid rgba(37, 99, 235, 0.3);
+      margin-bottom: 32px;
+      animation: scaleIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+      animation-delay: 0.1s;
+    }
+
+    .checkmark-svg {
+      width: 48px;
+      height: 48px;
+    }
+
+    .checkmark-svg .check-path {
+      stroke-dasharray: 100;
+      stroke-dashoffset: 100;
+      animation: checkDraw 0.5s ease forwards;
+      animation-delay: 0.5s;
+    }
+
+    .hero-label {
+      display: inline-block;
+      font-size: clamp(0.7rem, 2vw, 0.75rem);
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-light);
+      border: 1px solid rgba(37, 99, 235, 0.25);
+      padding: 6px 16px;
+      border-radius: var(--radius-pill);
+      margin-bottom: 20px;
+    }
+
+    .hero-headline {
+      font-size: clamp(2rem, 6vw, 3rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 3vw, 1.2rem);
+      font-weight: 400;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .hero-sub strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    /* ── Steps Section ── */
+    .steps-section {
+      padding: 0 0 80px;
+    }
+
+    .section-label {
+      font-size: clamp(0.65rem, 2vw, 0.7rem);
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+      text-align: center;
+    }
+
+    .steps-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .step-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 28px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .step-card:hover {
+      border-color: rgba(37, 99, 235, 0.25);
+      background: var(--bg-elevated);
+    }
+
+    .step-number {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--accent-light);
+      border: 1px solid rgba(37, 99, 235, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-top: 2px;
+    }
+
+    .step-content {
+      flex: 1;
+    }
+
+    .step-title {
+      font-size: clamp(0.95rem, 2.5vw, 1.05rem);
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+
+    .step-desc {
+      font-size: clamp(0.85rem, 2vw, 0.92rem);
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    .step-desc strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    /* ── WhatsApp Button ── */
+    .whatsapp-section {
+      padding: 0 0 80px;
+      text-align: center;
+    }
+
+    .whatsapp-text {
+      font-size: clamp(0.9rem, 2.5vw, 1rem);
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .whatsapp-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      min-height: 56px;
+      padding: 0 36px;
+      background: #16a34a;
+      color: #ffffff;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      text-decoration: none;
+      border-radius: var(--radius-btn);
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .whatsapp-btn:hover {
+      background: #15803d;
+      transform: translateY(-1px);
+    }
+
+    .whatsapp-btn:active {
+      transform: translateY(0);
+    }
+
+    .whatsapp-icon {
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
+    }
+
+    /* ── Reminder Box ── */
+    .reminder-section {
+      padding: 0 0 80px;
+    }
+
+    .reminder-box {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 36px 32px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .reminder-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+
+    .reminder-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--accent-light);
+      border: 1px solid rgba(37, 99, 235, 0.25);
+      margin-bottom: 20px;
+    }
+
+    .reminder-icon svg {
+      width: 26px;
+      height: 26px;
+    }
+
+    .reminder-title {
+      font-size: clamp(1.1rem, 3vw, 1.3rem);
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+
+    .reminder-desc {
+      font-size: clamp(0.85rem, 2vw, 0.95rem);
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 28px;
+      max-width: 420px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .reminder-desc strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .reminder-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 56px;
+      padding: 0 36px;
+      background: var(--accent);
+      color: #ffffff;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      text-decoration: none;
+      border-radius: var(--radius-btn);
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+      width: 100%;
+      max-width: 360px;
+    }
+
+    .reminder-btn:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+
+    .reminder-btn:active {
+      transform: translateY(0);
+    }
+
+    /* ── Divider ── */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      margin: 0 0 80px;
+    }
+
+    /* ── Footer ── */
+    footer {
+      width: 100%;
+      border-top: 1px solid var(--border);
+      padding: 36px 20px;
+      text-align: center;
+    }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px 20px;
+      margin-bottom: 16px;
+    }
+
+    .footer-links a {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--text-secondary);
+    }
+
+    .footer-sep {
+      color: var(--text-muted);
+      font-size: 0.75rem;
+    }
+
+    .footer-legal {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ── Mobile Adjustments ── */
+    @media (max-width: 480px) {
+      .hero-section {
+        padding: 60px 0 48px;
+      }
+
+      .step-card {
+        padding: 22px 20px;
+        gap: 16px;
+      }
+
+      .reminder-box {
+        padding: 28px 22px;
+      }
+
+      .steps-section,
+      .whatsapp-section,
+      .reminder-section {
+        padding-bottom: 60px;
+      }
+
+      .divider {
+        margin-bottom: 60px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─────────────────────────────────────────
+       FACEBOOK PIXEL FALLBACK
+  ───────────────────────────────────────── -->
+  <noscript>
+    <img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1234567890123456&ev=PageView&noscript=1"/>
+  </noscript>
+
+  <!-- ─────────────────────────────────────────
+       HEADER / LOGO
+  ───────────────────────────────────────── -->
+  <header class="header">
+    <a href="https://bianchiconsulting.it" class="logo-link" aria-label="Bianchi Consulting — Homepage">
+      <img
+        src="https://bianchiconsulting.it/logo.png"
+        alt="Bianchi Consulting"
+        class="logo-img"
+        onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='inline';"
+      />
+      <span id="logo-fallback" class="logo-fallback" style="display:none;">
+        Bianchi<span>.</span>
+      </span>
+    </a>
+  </header>
+
+  <!-- ─────────────────────────────────────────
+       PAGE CONTENT
+  ───────────────────────────────────────── -->
+  <main class="page-wrapper">
+    <div class="container">
+
+      <!-- ── Hero ── -->
+      <section class="hero-section">
+
+        <!-- Checkmark SVG -->
+        <div class="checkmark-wrapper fade-in-1" aria-hidden="true">
+          <svg class="checkmark-svg" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              class="check-path"
+              d="M10 25L20 35L38 15"
+              stroke="#2563EB"
+              stroke-width="4"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+
+        <div class="fade-in-1">
+          <div class="hero-label">Prenotazione confermata</div>
+        </div>
+
+        <h1 class="hero-headline fade-in-2">
+          Ottimo lavoro!
+        </h1>
+
+        <p class="hero-sub fade-in-3">
+          Abbiamo ricevuto la tua richiesta.<br />
+          La tua call con il team di <strong>Bianchi Consulting</strong> è stata prenotata con successo.
+        </p>
+
+      </section>
+
+      <!-- ── Steps ── -->
+      <section class="steps-section">
+
+        <p class="section-label fade-in-3">Cosa succede adesso</p>
+
+        <div class="steps-list">
+
+          <!-- Step 1 -->
+          <div class="step-card fade-in-3">
+            <div class="step-number" aria-hidden="true">1</div>
+            <div class="step-content">
+              <h2 class="step-title">Controlla la tua email</h2>
+              <p class="step-desc">
+                Riceverai a breve un'<strong>email di conferma</strong> con tutti i dettagli della call: data, orario e link per accedere alla sessione. Se non la trovi, controlla anche la cartella spam.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="step-card fade-in-4">
+            <div class="step-number" aria-hidden="true">2</div>
+            <div class="step-content">
+              <h2 class="step-title">Preparati per la call</h2>
+              <p class="step-desc">
+                Per rendere la sessione il più efficace possibile, tieni a portata di mano:
+                <strong>il tuo attuale ROAS o costo per acquisizione</strong>,
+                <strong>il budget mensile che stai investendo in ads</strong> e
+                <strong>il tuo obiettivo di fatturato per i prossimi 90 giorni</strong>.
+                Più sei preciso, più sarà immediato capire come portarti a 50k/mese.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="step-card fade-in-5">
+            <div class="step-number" aria-hidden="true">3</div>
+            <div class="step-content">
+              <h2 class="step-title">Durante la call analizzeremo il tuo caso</h2>
+              <p class="step-desc">
+                Il nostro esperto esaminerà insieme a te la <strong>situazione attuale del tuo store</strong>, identificherà i colli di bottiglia che ti impediscono di scalare e ti mostrerà, in modo concreto, come il <strong>Sistema E-Commerce Acceleration</strong> può portarti da 10k a 50k/mese in 90 giorni.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- ── WhatsApp ── -->
+      <section class="whatsapp-section fade-in-5">
+        <p class="whatsapp-text">
+          Hai domande urgenti prima della call?<br />
+          Scrivici direttamente su WhatsApp, rispondiamo entro poche ore.
+        </p>
+        <a
+          href="https://wa.me/393331234567?text=Ciao%2C%20ho%20appena%20prenotato%20una%20call%20e%20avrei%20una%20domanda."
+          class="whatsapp-btn"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Contattaci su WhatsApp"
+        >
+          <!-- WhatsApp SVG icon -->
+          <svg class="whatsapp-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www
